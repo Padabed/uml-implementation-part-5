@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface OrderRepository extends CrudRepository<OrderEntity, Long> {
 
-    @Query("from OrderEntity as o where o.orderStatus not like 'Delivered' and o.arrivalDate is not null")
+    @Query("from OrderEntity as o join Delivery as d on o.id = d.id " +
+            "where o.orderStatus not like 'Delivered' and d.arrivalDate is not null")
     List<OrderEntity> findWhereOrderStatusIsNotDeliveredAndDepartureTimeIsNotNull();
 }
